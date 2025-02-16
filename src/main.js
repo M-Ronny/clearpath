@@ -11,50 +11,47 @@ const databases = new Databases(client);
 
 const form = document.querySelector('form')
 
-form.addEventListener('submit', addJob)
+form.addEventListener('submit', addPost)
 
-function addJob(e){
+function addPost(e){
   e.preventDefault()
-  const job = databases.createDocument(
+  const post = databases.createDocument(
     DATABASE_ID,
     COLLECTION_ID,
     ID.unique(),
-    { "company-name": e.target.companyName.value,
-      "date-added":  e.target.dateAdded.value,
-      "role":  e.target.role.value,
-      "location":  e.target.location.value,
-      "position-type":  e.target.positionType.value,
-      "source":  e.target.source.value
+    { "description": e.target.description.value,
+      // "image":  e.target.image.value,
+      "dermatologist-recommendation": e.target.value
      }
   );
-  job.then(function (response) {
-      addJobsToDom()
+  post.then(function (response) {
+      addPostsToDom()
   }, function (error) {
       console.log(error);
   });
   form.reset()
 }
 
-async function addJobsToDom(){
+async function addPostsToDom(){
     document.querySelector('ul').innerHTML = ""
     let response = await databases.listDocuments(
       DATABASE_ID,
       COLLECTION_ID
   );
   //console.log(response.documents[0])
-  response.documents.forEach((job)=>{
+  response.documents.forEach((post)=>{
     const li = document.createElement('li')
-    li.textContent = `${job['company-name']} ${job['date-added']} ${job['role']} ${job['location']} ${job['position-type']} ${job['source']} coffee chat? ${job['chat']} `
+    li.textContent = `${post['description']} ${post['image']} Has it been answered? ${post['answered']} `
 
-    li.id = job.$id
+    li.id = post.$id
 
     const deleteBtn = document.createElement('button')
     deleteBtn.textContent = '🧨'
-    deleteBtn.onclick = () => removeJob(job.$id)
+    deleteBtn.onclick = () => removePost(post.$id)
 
     const coffeeBtn = document.createElement('button')
-    coffeeBtn.textContent = '☕'
-    coffeeBtn.onclick = () => updateChat(job.$id)
+    coffeeBtn.textContent = '✔️'
+    coffeeBtn.onclick = () => updateAnswer(post.$id)
 
     li.appendChild(coffeeBtn)
     li.appendChild(deleteBtn)
@@ -62,7 +59,7 @@ async function addJobsToDom(){
     document.querySelector('ul').appendChild(li)
   })
 
-  async function removeJob(id){
+  async function removePost(id){
     const result = await databases.deleteDocument(
       DATABASE_ID, // databaseId
       COLLECTION_ID, // collectionId
@@ -71,12 +68,12 @@ async function addJobsToDom(){
     document.getElementById(id).remove()
   
   }
-  async function updateChat(id){
+  async function updateAnswer(id){
     const result = databases.updateDocument(
       DATABASE_ID, // databaseId
       COLLECTION_ID, // collectionId
       id, // documentId
-      {'chat': true} // data (optional)
+      {'answered': true} // data (optional)
         // permissions (optional)
     );
     result.then(function(){location.reload()})
@@ -88,7 +85,7 @@ async function addJobsToDom(){
   //     console.log(error);
   // });
 }
-addJobsToDom()
+addPostsToDom()
 
 // const promise = databases.createDocument(
 //     DATABASE_ID,
