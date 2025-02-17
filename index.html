@@ -4,16 +4,51 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ClearPath</title>
+    <title>ClearPath - Skin Selector</title>
   </head>
   <body>
-    <form action="">
-      <input type="text" name="description" placeholder="description">
-      <input type="file" name="image" id="image" accept="image/png image/jpeg">
-      <input type="submit" id="submit">
+    <h1>Find Your Skincare Recommendation</h1>
+    <form id="skinForm">
+      <label for="skinType">Select your skin type:</label>
+      <select name="skinType" id="skinType" required>
+        <option value="">--SELECT--</option>
+        <option value="oily">Oily</option>
+        <option value="dry">Dry</option>
+        <option value="combination">Combination</option>
+        <option value="sensitive">Sensitive</option>
+      </select>
+      <br /><br />
+
+      <fieldset>
+        <legend>Select your skin concerns:</legend>
+        <label>
+          <input type="checkbox" name="concerns" value="acne">
+          Acne
+        </label>
+        <label>
+          <input type="checkbox" name="concerns" value="redness">
+          Redness
+        </label>
+        <label>
+          <input type="checkbox" name="concerns" value="aging">
+          Signs of Aging
+        </label>
+        <label>
+          <input type="checkbox" name="concerns" value="dullness">
+          Dullness
+        </label>
+      </fieldset>
+      <br />
+
+      <label for="image">Upload an image (optional):</label>
+      <input type="file" name="image" id="image" accept="image/png, image/jpeg">
+      <br /><br />
+      
+      <button type="submit">Get Recommendations</button>
     </form>
-    <ul></ul>
+
+    <ul id="posts"></ul>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
-
