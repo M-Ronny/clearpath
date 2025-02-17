@@ -12,7 +12,6 @@
     "vite": "^6.1.0"
   },
   "dependencies": {
-    "appwrite": "^17.0.0",
-    "axios": "^1.7.9"
+    "appwrite": "^17.0.0"
   }
 }
