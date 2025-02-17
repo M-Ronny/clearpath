@@ -25,6 +25,7 @@ async function addPost(e) {
   }
 
   let imageUrl = "";
+  let fileId = ""
 
   try {
     const uploadedFile = await storage.createFile(
@@ -33,8 +34,9 @@ async function addPost(e) {
       imageFile
     );
 
-    const imageId = uploadedFile.$id;
-    imageUrl = `https://cloud.appwrite.io/v1/storage/buckets/${BUCKET_ID}/files/${imageId}/view?project=${PROJECT_ID}`;
+    fileId = uploadedFile.$id;
+    imageUrl = `https://cloud.appwrite.io/v1/storage/buckets/${BUCKET_ID}/files/${fileId}/view?project=${PROJECT_ID}`;
+
     console.log("Image uploaded:", imageUrl);
   } catch (error) {
     console.log("Error uploading image:", error);
@@ -48,7 +50,8 @@ async function addPost(e) {
     ID.unique(),
     { 
       "description": description,
-      "image": imageUrl
+      "image": imageUrl,
+      "fileId": fileId
     }
   );
 
@@ -72,7 +75,7 @@ async function addPostsToDom() {
 
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = '🧨';
-    deleteBtn.onclick = () => removePost(post.$id);
+    deleteBtn.onclick = () => removePost(post.$id, post.fileId);
 
     const coffeeBtn = document.createElement('button');
     coffeeBtn.textContent = '✔️';
@@ -83,9 +86,24 @@ async function addPostsToDom() {
     document.querySelector('ul').appendChild(li);
   });
 
-  async function removePost(id) {
-    await databases.deleteDocument(DATABASE_ID, COLLECTION_ID, id);
-    document.getElementById(id).remove();
+  async function removePost(docId, fileId) {
+    try {
+      // First, delete the file from Appwrite Storage
+      await storage.deleteFile(BUCKET_ID, fileId);
+      console.log("File deleted:", fileId);
+    } catch (error) {
+      console.error("Error deleting file:", error);
+      // Optionally alert or handle file deletion error
+    }
+
+    try {
+      // Then, delete the document from the database
+      await databases.deleteDocument(DATABASE_ID, COLLECTION_ID, docId);
+      document.getElementById(docId).remove();
+      console.log("Post deleted:", docId);
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
   }
 
   async function updateAnswer(id) {
