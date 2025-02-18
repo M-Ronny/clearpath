@@ -33,6 +33,7 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  margin-bottom: 5px;
 }
 
 #app {
@@ -73,6 +74,7 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  margin: 5px;
 }
 button:hover {
   border-color: #646cff;
@@ -89,7 +91,7 @@ body {
 }
 
 h1, label, input, 
-legend, input, h2 {
+legend, input, h2, h3, h4 {
   color: black;
 }
 
@@ -111,6 +113,8 @@ section {
 fieldset {
   display: flex;
   gap: 20px;
+  border: none;
+  margin-bottom: 20px;
 }
 
 label {
@@ -131,11 +135,13 @@ img {
   width: 80%;
 }
 
-ul {
+.recommendation {
   background: #7F9565;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+  height: 1000px;
+}
+
+li {
+  list-style: none;
 }
 
 @media (prefers-color-scheme: light) {
