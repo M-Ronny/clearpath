@@ -88,6 +88,11 @@ body {
   display: block;
 }
 
+h1, label, input, 
+legend, input, h2 {
+  color: black;
+}
+
 section {
   background-image: url(images/towfiqu-barbhuiya-0BEqLfQwVzM-unsplash.jpg);
   background-repeat: no-repeat;
@@ -124,6 +129,13 @@ img {
   align-items: center;
   text-align: center;
   width: 80%;
+}
+
+ul {
+  background: #7F9565;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 @media (prefers-color-scheme: light) {
