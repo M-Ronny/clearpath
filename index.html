@@ -3,50 +3,73 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="src/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ClearPath - Skin Selector</title>
   </head>
   <body>
-    <h1>Find Your Skincare Recommendation</h1>
-    <form id="skinForm">
-      <label for="skinType">Select your skin type:</label>
-      <select name="skinType" id="skinType" required>
-        <option value="">--SELECT--</option>
-        <option value="oily">Oily</option>
-        <option value="dry">Dry</option>
-        <option value="combination">Combination</option>
-        <option value="sensitive">Sensitive</option>
-      </select>
+    <section>
+      <h1>Find Your Skincare Recommendation</h1>
+      <form id="skinForm">
+        <div class="fillOut">
+        <label for="skinType">Select your skin type:</label>
+        <select name="skinType" id="skinType" required>
+          <option value="">--SELECT--</option>
+          <option value="oily">Oily</option>
+          <option value="dry">Dry</option>
+          <option value="combination">Combination</option>
+          <option value="sensitive">Sensitive</option>
+        </select>
+        </div>
       <br /><br />
 
       <fieldset>
         <legend>Select your skin concerns:</legend>
+        <div class="skinConcerns">
         <label>
           <input type="checkbox" name="concerns" value="acne">
           Acne
         </label>
+        <img src="images/acne.jpeg" alt="acne">
+        </div>
+        <div class="skinConcerns">
         <label>
           <input type="checkbox" name="concerns" value="redness">
           Redness
         </label>
+        <img src="images/redness.jpg" alt="redness">
+        </div>
+        <div class="skinConcerns">
         <label>
           <input type="checkbox" name="concerns" value="aging">
           Signs of Aging
         </label>
+        <img src="images/aging.jpg" alt="aging">
+        </div>
+        <div class="skinConcerns">
         <label>
           <input type="checkbox" name="concerns" value="dullness">
           Dullness
         </label>
+        <img src="images/dull.jpg" alt="dull">
+        </div>
       </fieldset>
       <br />
 
-      <label for="image">Upload an image (optional):</label>
-      <input type="file" name="image" id="image" accept="image/png, image/jpeg">
+        <div class="fillOut">
+        <label for="image">Upload an image (optional):</label>
+          <input type="file" name="image" id="image" accept="image/png, image/jpeg">
+        </div>
       <br /><br />
       
-      <button type="submit">Get Recommendations</button>
-    </form>
+        <div class="fillOut">
+        <button type="submit">Get Recommendations</button>
+        </div>
+      </form>
 
+      <h2>Scoll Down For Results</h2>
+
+    </section>
     <ul id="posts"></ul>
 
     <script type="module" src="/src/main.js"></script>
