@@ -80,16 +80,78 @@ function getRecommendations(skinType, concerns) {
   let rec = "";
 
   if (skinType === "oily" && concerns.includes("acne")) {
-    rec = "Use an oil-free cleanser, salicylic acid treatment, and lightweight moisturizer.";
+    rec = `Use an oil-free cleanser, salicylic acid treatment, and lightweight moisturizer.
+            
+           Product recommendations:
+           
+           • Oil-Free Cleanser:
+            • CeraVe Foaming Facial Cleanser: A classic, gentle, and effective option.
+            • La Roche-Posay Effaclar Purifying Foaming Gel Cleanser: Formulated for oily, acne-prone skin.
+            • Neutrogena Oil-Free Acne Fighting Facial Cleanser: Contains salicylic acid to fight breakouts.
+
+           • Salicylic Acid Treatment:
+            • Paula's Choice 2% BHA Liquid Exfoliant: A cult favorite for exfoliating and unclogging pores.
+            • The Ordinary Salicylic Acid 2% Solution: Affordable and effective.
+            • COSRX BHA Blackhead Power Liquid: A gentle Korean beauty option.
+
+           • Lightweight Moisturizer:
+            • CeraVe AM Facial Moisturizing Lotion with SPF 30: Great for daytime use with sun protection.
+            • La Roche-Posay Toleriane Double Repair Matte Moisturizer: For oily, sensitive skin.
+            • Neutrogena Hydro Boost Water Gel: A classic lightweight, oil-free option.
+          
+          Note: These are just recommendations. It is always best to consult with a dermatologist for personalized advice, especially if you have any specific skin concerns.
+          
+          `;
   } else if (skinType === "dry" && concerns.includes("dullness")) {
-    rec = "Use a hydrating cleanser, vitamin C serum, and a rich moisturizer with hyaluronic acid.";
+    rec = `Use a hydrating cleanser, vitamin C serum, and a rich moisturizer with hyaluronic acid.
+    
+           Product recommendations:
+
+            • Hydrating Cleanser:
+             • CeraVe Hydrating Facial Cleanser: Gentle and contains ceramides to protect the skin barrier.
+             • La Roche-Posay Toleriane Hydrating Gentle Cleanser: Fragrance-free and suitable for sensitive skin.
+             • Glossier Milky Jelly Cleanser: A creamy, gentle cleanser.
+            
+            • Vitamin C Serum:
+             • Skinceuticals C E Ferulic: A high-end but highly effective option.
+             • Mad Hippie Vitamin C Serum: A more affordable and popular choice.
+             • Timeless Skin Care Vitamin C + E Ferulic Serum: Another great affordable option.
+    
+            • Rich Moisturizer with Hyaluronic Acid:
+             • CeraVe Moisturizing Cream: A classic for dry skin, contains ceramides and hyaluronic acid.
+             • Neutrogena Hydro Boost Extra-Dry Skin Gel-Cream: A richer version of the popular Hydro Boost line.
+             • La Roche-Posay Toleriane Double Repair Moisturizer: Rich yet gentle, suitable for sensitive skin.
+    
+          Note: These are just recommendations. It is always best to consult with a dermatologist for personalized advice, especially if you have any specific skin concerns.
+    
+          `;
   } else if (skinType === "sensitive") {
-    rec = "Opt for gentle, fragrance-free products with soothing ingredients like aloe vera.";
+    rec = `Opt for gentle, fragrance-free products with soothing ingredients like aloe vera. 
+          
+           Product recommendations:
+
+            • Cleanser:
+             • Vanicream Gentle Facial Cleanser: Specifically formulated for sensitive skin.
+             • Cetaphil Gentle Skin Cleanser: A classic for sensitive skin.
+             • Aveeno Skin Relief Gentle Foaming Wash: Contains soothing oat extract.
+            
+            • Serum/Treatment:
+             • La Roche-Posay Toleriane Ultra Soothing Serum: Fragrance-free and contains neurosensine to soothe skin.
+             • Purito Centella Unscented Serum: Contains centella asiatica, known for its calming properties.
+
+            • Moisturizer:
+             • Vanicream Moisturizing Cream: Fragrance-free and suitable for very sensitive skin.
+             • Cetaphil Moisturizing Cream: Another classic for sensitive skin.
+             • Aveeno Skin Relief Moisturizing Cream: Contains colloidal oatmeal to soothe itchy skin.
+    
+          Note: These are just recommendations. It is always best to consult with a dermatologist for personalized advice, especially if you have any specific skin concerns.
+
+          `;
   } else {
     rec = "Maintain a balanced routine: cleanse, treat, and moisturize daily. Consult a dermatologist for personalized advice.";
   }
 
-  return rec;
+  return rec.replace(/\n/g, '<br>');
 }
 
 async function addResultsToDom() {
@@ -100,7 +162,8 @@ async function addResultsToDom() {
     const li = document.createElement('li');
     li.innerHTML = `
       <p><strong>Description:</strong> ${result.description}</p>
-      <p><strong>Recommendation:</strong> ${result.recommendation}</p>
+      <p><strong>Recommendation:</strong></p>
+      <pre>${result.recommendation}</pre>
       ${result.image ? `<img src="${result.image}" alt="Image" style="width: 200px;">` : ""}
       <p>Are you satisfied with these results? <strong>${result.answered === true ? "Yes" : result.answered === false ? "No" : ""}</strong></p>
     `;
